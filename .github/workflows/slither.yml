@@ -1,0 +1,36 @@
+name: Slither Analysis
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: npm ci
+    - name: Compile contracts
+      run: npx hardhat compile
+    - name: Run Slither
+      uses: crytic/slither-action@v1
+      continue-on-error: true
+      id: slither
+      with:
+        target: .
+        ignore-compile: true
+        sarif: results.sarif
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: ${{ steps.slither.outputs.sarif }}
