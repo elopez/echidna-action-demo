@@ -22,9 +22,14 @@ jobs:
     - name: Compile contracts
       run: npx hardhat compile
     - name: Run Echidna
-      uses: elopez/echidna-action@master
+      uses: crytic/echidna-action@dev-output-file
+      continue-on-error: true
       with:
         solc-version: 0.7.6
         files: .
         contract: TokenEchidna
         crytic-args: --hardhat-ignore-compile
+        output-file: e.log
+    - run: |
+        cat e.log
+        md5sum e.log
