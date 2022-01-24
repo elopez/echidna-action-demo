@@ -30,6 +30,7 @@ jobs:
         contract: TokenEchidna
         crytic-args: --hardhat-ignore-compile
         output-file: e.log
+        echidna-version: v2.0.0-b2
     - run: |
         cat e.log
         md5sum e.log
