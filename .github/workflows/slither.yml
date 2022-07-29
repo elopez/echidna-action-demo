@@ -23,7 +23,7 @@ jobs:
     - name: Compile contracts
       run: npx hardhat compile
     - name: Run Slither
-      uses: crytic/slither-action@v0.1.0
+      uses: crytic/slither-action@dev
       continue-on-error: true
       id: slither
       with:
