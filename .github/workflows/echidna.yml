@@ -22,7 +22,7 @@ jobs:
     - name: Compile contracts
       run: npx hardhat compile
     - name: Run Echidna
-      uses: crytic/echidna-action@dev-echidna-version
+      uses: crytic/echidna-action@dev-add-echidna-version
       continue-on-error: true
       with:
         solc-version: 0.7.6
