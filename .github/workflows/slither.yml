@@ -23,13 +23,14 @@ jobs:
     - name: Compile contracts
       run: npx hardhat compile
     - name: Run Slither
-      uses: crytic/slither-action@dev
+      uses: crytic/slither-action@dev-github-versions
       continue-on-error: true
       id: slither
       with:
         target: .
         ignore-compile: true
         sarif: results.sarif
+        slither-version: dev
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v1
       with:
